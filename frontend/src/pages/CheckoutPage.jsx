@@ -59,64 +59,55 @@ export default function CheckoutPage() {
 
   // ----------------- UPDATED HANDLEPLACEORDER -----------------
   const handlePlaceOrder = async () => {
-    if (!isDateValid || !areRequiredFieldsFilled) {
-      setDateError(!isDateValid ? "Please select a valid delivery date" : "");
-      setShakeDate(true);
-      setTimeout(() => setShakeDate(false), 350);
-      return;
-    }
+  if (!isDateValid || !areRequiredFieldsFilled) {
+    setDateError(!isDateValid ? "Please select a valid delivery date" : "");
+    setShakeDate(true);
+    setTimeout(() => setShakeDate(false), 350);
+    return;
+  }
 
-    try {
-      // 1️⃣ Call backend to create Razorpay order
-      const res = await fetch("http://localhost:5000/api/create-order", {
+  try {
+    // STEP 1: create fake order
+    const res = await fetch(
+      "https://bakemart-backend.onrender.com/api/create-order",
+      {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ amount: total * 100 }), // convert ₹ to paise
-      });
+        body: JSON.stringify({ amount: total * 100 }),
+      }
+    );
 
-      const { orderId, key } = await res.json();
+    const data = await res.json();
 
-      // 2️⃣ Razorpay checkout
-      const options = {
-        key,
-        amount: total * 100,
-        currency: "INR",
-        name: "Bakemart Paradise",
-        description: "Cake Order Payment",
-        order_id: orderId,
-        handler: async function (response) {
-          // 3️⃣ Save order to backend after successful payment
-          await fetch("http://localhost:5000/api/save-order", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              items: cart,
-              totalAmount: total,
-              customer: formData,
-              paid: true,
-              paymentId: response.razorpay_payment_id,
-            }),
-          });
+    // STEP 2: simulate payment success
+    const fakePaymentId = "pay_" + Date.now();
 
-          clearCart();
-          alert("Payment successful! Order placed.");
-          navigate("/");
-        },
-        prefill: {
-          name: formData.fullName,
-          email: formData.email,
-          contact: formData.phone,
-        },
-        theme: { color: "#ffe6c0" },
-      };
+    // STEP 3: save order
+    await fetch(
+      "https://bakemart-backend.onrender.com/api/save-order",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          items: cart,
+          totalAmount: total,
+          customer: formData,
+          paid: true,
+          paymentId: fakePaymentId,
+        }),
+      }
+    );
 
-      const rzp = new window.Razorpay(options);
-      rzp.open();
-    } catch (err) {
-      console.log(err);
-      alert("Payment failed. Please try again.");
-    }
-  };
+    clearCart();
+    alert("✅ Order placed successfully!");
+    navigate("/");
+
+  } catch (err) {
+    console.error(err);
+    alert("Something went wrong. Try again.");
+  }
+};
+
   // ------------------------------------------------------------
 
   return (
