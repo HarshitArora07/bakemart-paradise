@@ -1,0 +1,9 @@
+name: Dummy Deploy
+on:
+  workflow_dispatch:
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dummy step
+        run: echo "Dummy deployment"
