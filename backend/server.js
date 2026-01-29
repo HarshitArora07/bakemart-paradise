@@ -1,8 +1,7 @@
 import express from "express";
 import cors from "cors";
-import mongoose from "mongoose";
-import Razorpay from "razorpay";
 import dotenv from "dotenv";
+import mongoose from "mongoose";
 
 dotenv.config();
 
@@ -10,56 +9,56 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// MongoDB
+// -------------------- DB CONNECT --------------------
 mongoose
   .connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.log(err));
+  .then(() => console.log("✅ MongoDB Connected"))
+  .catch((err) => console.log("❌ DB Error:", err));
 
-// Razorpay instance
-const razorpay = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY,
-  key_secret: process.env.RAZORPAY_SECRET,
-});
+// -------------------- ORDER MODEL --------------------
+const orderSchema = new mongoose.Schema(
+  {
+    items: Array,
+    totalAmount: Number,
+    customer: Object,
+    paid: Boolean,
+    paymentId: String,
+  },
+  { timestamps: true }
+);
 
-// Order schema
-const orderSchema = new mongoose.Schema({
-  items: Array,
-  totalAmount: Number,
-  customer: Object,
-  paid: Boolean,
-  paymentId: String,
-  date: { type: Date, default: Date.now },
-});
 const Order = mongoose.model("Order", orderSchema);
 
-// Routes
-app.post("/api/create-order", async (req, res) => {
-  try {
-    const { amount } = req.body;
-    const order = await razorpay.orders.create({
-      amount,
-      currency: "INR",
-      payment_capture: 1,
-    });
-    res.json({ orderId: order.id, key: process.env.RAZORPAY_KEY });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ error: "Razorpay order creation failed" });
-  }
+// -------------------- ROUTES --------------------
+
+// 🔹 Fake Razorpay Order (Simulation)
+app.post("/api/create-order", (req, res) => {
+  const { amount } = req.body;
+
+  res.json({
+    orderId: "order_dummy_" + Date.now(),
+    key: "rzp_test_dummy_key", // frontend expects this
+  });
 });
 
+// 🔹 Save Order
 app.post("/api/save-order", async (req, res) => {
   try {
-    const { items, totalAmount, customer, paid, paymentId } = req.body;
-    const newOrder = new Order({ items, totalAmount, customer, paid, paymentId });
-    await newOrder.save();
-    res.json({ success: true });
+    const order = new Order(req.body);
+    await order.save();
+
+    res.json({
+      success: true,
+      message: "Order saved successfully",
+    });
   } catch (err) {
-    console.log(err);
-    res.status(500).json({ error: "Failed to save order" });
+    console.error(err);
+    res.status(500).json({ error: "Order saving failed" });
   }
 });
 
+// -------------------- SERVER --------------------
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () =>
+  console.log(`🚀 Backend running on port ${PORT}`)
+);
