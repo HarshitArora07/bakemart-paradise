@@ -1,0 +1,109 @@
+/* Menu Page Wrapper */
+.menu-page {
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  padding: 100px 20px 60px; /* prevents overlap with navbar */
+}
+
+/* Container */
+.menu-container {
+  max-width: 1100px;
+  margin: auto;
+  color: white;
+}
+
+/* Title */
+.menu-title {
+  font-size: 48px;
+  margin-bottom: 40px;
+}
+
+/* Section */
+.menu-section {
+  margin-bottom: 50px;
+}
+
+.menu-section h2 {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+/* Menu Item */
+.menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  margin-bottom: 25px;
+}
+
+/* Text */
+.menu-text {
+  flex: 1;
+}
+
+.menu-text h3 {
+  font-size: 22px;
+}
+
+.menu-text p {
+  font-size: 16px;
+  opacity: 0.8;
+}
+
+/* Image */
+.menu-item img {
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+/* -------------------- */
+/* MOBILE RESPONSIVE */
+/* -------------------- */
+@media (max-width: 768px) {
+  .menu-title {
+    font-size: 36px;
+  }
+
+  .menu-section h2 {
+    font-size: 26px;
+  }
+
+  /* KEY PART: IMAGE TO THE RIGHT */
+  .menu-item {
+    flex-direction: row; /* text left, image right */
+    align-items: center;
+  }
+
+  .menu-item img {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .menu-page {
+    padding-top: 80px;
+  }
+
+  .menu-item img {
+    width: 90px;
+    height: 90px;
+  }
+}
+/* MOBILE VIEW – move image to right side */
+@media (max-width: 768px) {
+  .menu-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .menu-item img {
+    margin-left: auto;
+  }
+}
