@@ -153,10 +153,14 @@ export default function Menu3() {
   };
 
   return (
-    <div ref={sectionRef} className="relative overflow-hidden min-h-screen">
+    <div
+  ref={sectionRef}
+  className="relative overflow-hidden min-h-screen menu3-page"
+>
+
       <div
-        className="absolute inset-0 bg-cover bg-center -z-20"
-        style={{ backgroundImage: `url(${bgMain})` }}
+        className="fixed inset-0 bg-cover bg-center opacity-70 -z-10"
+                style={{ backgroundImage: `url(${bgMain})` }}
       />
       <div className="absolute inset-0 bg-black/40 -z-10" />
 
