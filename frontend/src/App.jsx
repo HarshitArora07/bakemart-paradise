@@ -1,4 +1,5 @@
 import Navbar from "./components/Navbar";
+import AdminOrders from "./pages/AdminOrders";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Menu1 from "./pages/Menu1";
@@ -34,7 +35,7 @@ export default function App() {
             <Navbar />
 
             <Routes>
-              {/* Home / Single-page scroll sections */}
+              {/* HOME / SINGLE PAGE SCROLL */}
               <Route
                 path="/"
                 element={
@@ -67,10 +68,13 @@ export default function App() {
                 }
               />
 
-              {/* Cart & Orders */}
+              {/* CART & USER ORDERS */}
               <Route path="/cart" element={<CartPage />} />
               <Route path="/orders" element={<OrderHistoryPage />} />
               <Route path="/checkout" element={<CheckoutPage />} />
+
+              {/* ✅ ADMIN ORDERS PAGE */}
+              <Route path="/admin/orders" element={<AdminOrders />} />
             </Routes>
           </div>
         </div>
