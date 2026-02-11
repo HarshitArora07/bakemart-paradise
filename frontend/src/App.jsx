@@ -29,7 +29,7 @@ export default function App() {
           className="relative h-screen bg-cover bg-center bg-fixed"
           style={{ backgroundImage: `url(${bgImage})` }}
         >
-          <div className="absolute inset-0 bg-black/50"></div>
+          <div className="absolute inset-0 bg-black/45"></div>
 
           <div className="relative h-screen overflow-y-scroll snap-y snap-mandatory scroll-smooth">
             <Navbar />

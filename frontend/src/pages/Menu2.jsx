@@ -43,7 +43,6 @@ export default function Menu2() {
 
   const fudgyMenu = [{ name: "Brownie with Ice-Cream", price: 100 }];
 
-  /* ---------- MENU ITEMS (REFINED FOR MOBILE) ---------- */
   const MenuItems = ({ items }) => (
     <div className="w-full max-w-[260px] sm:max-w-[300px]">
       {items.map((item, i) => (
@@ -73,96 +72,151 @@ export default function Menu2() {
         style={{ backgroundImage: `url(${bgMain})` }}
       />
 
-      {/* ---------- DESKTOP (UNCHANGED) ---------- */}
+      {/* ================= DESKTOP ================= */}
       <section className="hidden md:flex h-screen justify-center items-center px-6 text-white pt-28">
-        <div className="flex gap-32 items-start">
-          {/* BEVERAGES */}
-          <div className="flex flex-col gap-4 items-center -mt-14">
-            <h3 className="text-[#ffe6c0] font-['Poppins'] text-4xl font-bold mb-1">BEVERAGES</h3>
+        <div className="flex gap-10 items-stretch w-full max-w-6xl">
 
-            <div className={`flex gap-4 items-center ${visible ? "animate-fade-in" : "opacity-0"}`}>
+          {/* ===== BEVERAGES CARD ===== */}
+          <div className="flex-1">
+            <div className="
+              w-full h-full
+              bg-white/5 backdrop-blur-sm
+              border border-white/20
+              rounded-xl
+              px-4 py-2
+              transition-all duration-300 ease-out
+              hover:-translate-y-[10px]
+              hover:ring-1 hover:ring-[#ffbf6b]/90
+              hover:shadow-[0_0_20px_rgba(255,191,107,0.55),_0_0_40px_rgba(255,191,107,0.65)]
+            ">
+              <div className="flex flex-col gap-4 items-center -mt-14">
+                <h3 className="text-[#ffe6c0] font-['Poppins'] text-4xl font-bold mb-1">
+                  BEVERAGES
+                </h3>
+
+                <div className={`flex gap-4 items-center ${visible ? "animate-fade-in" : "opacity-0"}`}>
+                  <MenuItems items={beverageMenu.slice(0, 6)} />
+                  <img
+                    src={s1}
+                    className={`w-52 h-52 object-contain ${
+                      visible ? "animate-slide-in-right" : "opacity-0"
+                    }`}
+                  />
+                </div>
+
+                <div className={`flex gap-4 items-center -mt-2 ${visible ? "animate-fade-in" : "opacity-0"}`}>
+                  <img
+                    src={s2}
+                    className={`w-52 h-52 object-contain ${
+                      visible ? "animate-slide-in-left" : "opacity-0"
+                    }`}
+                  />
+                  <MenuItems items={beverageMenu.slice(6)} />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* ===== FUDGY CARD ===== */}
+          <div className="flex-1">
+            <div className="
+              w-full h-full
+              bg-white/5 backdrop-blur-sm
+              border border-white/20
+              rounded-xl
+              px-4 py-2
+              transition-all duration-300 ease-out
+              hover:-translate-y-[10px]
+              hover:ring-1 hover:ring-[#ffbf6b]/90
+              hover:shadow-[0_0_20px_rgba(255,191,107,0.55),_0_0_40px_rgba(255,191,107,0.65)]
+            ">
+              <div className="flex flex-col gap-2 items-center -mt-14">
+                <h3 className="text-[#ffe6c0] font-['Poppins'] text-4xl font-bold mb-1">
+                  FUDGY DELIGHTS
+                </h3>
+
+                <MenuItems items={fudgyMenu} />
+
+                <img
+                  src={fm1}
+                  className={`w-80 h-80 object-contain ${
+                    visible ? "animate-zoom-in" : "opacity-0"
+                  }`}
+                />
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ================= MOBILE ================= */}
+      <section className="md:hidden px-4 pt-20 pb-10 text-white space-y-8">
+
+        {/* BEVERAGES CARD */}
+        <div className="
+          w-full
+          bg-white/5 backdrop-blur-sm
+          border border-white/20
+          rounded-xl
+          px-4 py-4
+        ">
+          <div className="flex flex-col items-center gap-5">
+            <h3 className="text-[#ffe6c0] font-['Poppins'] text-2xl font-bold">
+              BEVERAGES
+            </h3>
+
+            <div className="flex gap-3 items-center">
               <MenuItems items={beverageMenu.slice(0, 6)} />
               <img
                 src={s1}
-                className={`w-52 h-52 object-contain ${
+                className={`w-24 h-24 object-contain ${
                   visible ? "animate-slide-in-right" : "opacity-0"
                 }`}
               />
             </div>
 
-            <div className={`flex gap-4 items-center -mt-2 ${visible ? "animate-fade-in" : "opacity-0"}`}>
+            <div className="flex gap-3 items-center pr-3">
               <img
                 src={s2}
-                className={`w-52 h-52 object-contain ${
+                className={`w-28 h-28 object-contain ${
                   visible ? "animate-slide-in-left" : "opacity-0"
                 }`}
               />
-              <MenuItems items={beverageMenu.slice(6)} />
+              <div className="-ml-5">
+                <MenuItems items={beverageMenu.slice(6)} />
+              </div>
             </div>
           </div>
+        </div>
 
-          {/* FUDGY */}
-          <div className="flex flex-col gap-2 items-center -mt-14">
-            <h3 className="text-[#ffe6c0] font-['Poppins'] text-4xl font-bold mb-1">FUDGY DELIGHTS</h3>
+        {/* FUDGY CARD */}
+        <div className="
+          w-full
+          bg-white/5 backdrop-blur-sm
+          border border-white/20
+          rounded-xl
+          px-4 py-4
+        ">
+          <div className="flex flex-col items-center text-center gap-3">
+            <h3 className="text-[#ffe6c0] font-['Poppins'] text-2xl font-bold">
+              FUDGY DELIGHTS
+            </h3>
+
             <MenuItems items={fudgyMenu} />
+
             <img
               src={fm1}
-              className={`w-80 h-80 object-contain ${
+              className={`w-32 h-32 object-contain ${
                 visible ? "animate-zoom-in" : "opacity-0"
               }`}
             />
           </div>
         </div>
+
       </section>
 
-       {/* ---------- MOBILE (REFINED) ---------- */}
-      <section className="md:hidden px-4 pt-20 pb-10 text-white space-y-8">
-        {/* BEVERAGES */}
-        <div className="flex flex-col items-center gap-5">
-          <h3 className="text-[#ffe6c0] font-['Poppins'] text-2xl font-bold">BEVERAGES</h3>
-
-          <div className="flex gap-3 items-center">
-            <MenuItems items={beverageMenu.slice(0, 6)} />
-            <img
-  src={s1}
-  className={`w-24 h-24 object-contain ${
-    visible ? "animate-slide-in-right" : "opacity-0"
-  }`}
-/>
-
-          </div>
-
-          <div className="flex gap-3 items-center pr-3">
-            <img
-  src={s2}
-  className={`w-28 h-28 object-contain ${
-    visible ? "animate-slide-in-left" : "opacity-0"
-  }`}
-/>
-
-            <div className="-ml-5">
-  <MenuItems items={beverageMenu.slice(6)} />
-</div>
-          </div>
-        </div>
-
-        {/* FUDGY MOBILE – CENTERED */}
-        <div className="flex flex-col items-center text-center gap-3">
-          <h3 className="text-[#ffe6c0] font-['Poppins'] text-2xl font-bold">FUDGY DELIGHTS</h3>
-
-          <MenuItems items={fudgyMenu} />
-
-          <img
-            src={fm1}
-            className={`w-32 h-32 object-contain ${
-              visible ? "animate-zoom-in" : "opacity-0"
-            }`}
-          />
-        </div>
-      </section>
-
-
-      {/* ---------- ANIMATIONS ---------- */}
+      {/* ================= ANIMATIONS ================= */}
       <style>
         {`
           @keyframes fade-in {
@@ -181,11 +235,11 @@ export default function Menu2() {
             0% { opacity: 0; transform: scale(0.5); }
             100% { opacity: 1; transform: scale(1); }
           }
-          .animate-fade-in { animation: fade-in 1.2s ease-out forwards; }
-.animate-slide-in-right { animation: slide-in-right 0.8s ease-out forwards; }
-.animate-slide-in-left { animation: slide-in-left 0.8s ease-out forwards; }
-.animate-zoom-in { animation: zoom-in 0.8s ease-out forwards; }
 
+          .animate-fade-in { animation: fade-in 1.2s ease-out forwards; }
+          .animate-slide-in-right { animation: slide-in-right 0.8s ease-out forwards; }
+          .animate-slide-in-left { animation: slide-in-left 0.8s ease-out forwards; }
+          .animate-zoom-in { animation: zoom-in 0.8s ease-out forwards; }
         `}
       </style>
     </div>

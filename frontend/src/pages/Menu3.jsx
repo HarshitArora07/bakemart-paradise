@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import bgMain from "../assets/bg-main.png";
 
 // Slider Images
 import c1 from "../assets/cakes/c1.png";
@@ -158,19 +157,13 @@ export default function Menu3() {
   className="relative overflow-hidden min-h-screen menu3-page"
 >
 
-      <div
-        className="fixed inset-0 bg-cover bg-center opacity-70 -z-10"
-                style={{ backgroundImage: `url(${bgMain})` }}
-      />
-      <div className="absolute inset-0 bg-black/40 -z-10" />
-
       <section
         className="
           min-h-screen
           pt-20 m:pt-24 md:pt-24 lg:pt-20
           lg:-mt-8
           px-4 sm:px-6
-          bg-black/50 text-white
+          text-white
         "
       >
         <h2 className="text-center text-2xl sm:text-3xl md:text-4xl lg:text-4xl font-bold text-[#ffe6c0] mb-6">
@@ -195,7 +188,7 @@ export default function Menu3() {
           Choose Your Cake
         </h3>
 
-        <p className="text-center text-white/60 text-sm mt-2 mb-4">
+        <p className="text-center text-white/80 text-m mt-2 mb-4">
           Select weight & place your order ↓
         </p>
 

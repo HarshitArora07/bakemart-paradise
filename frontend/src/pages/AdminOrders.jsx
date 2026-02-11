@@ -105,60 +105,114 @@ export default function AdminOrders() {
     link.click();
   };
 
-  // 🧾 PRINT INVOICE
-  const printInvoice = (order) => {
-    const invoiceWindow = window.open("", "_blank", "width=800,height=600");
-    invoiceWindow.document.write(`
-      <html>
-        <head>
-          <title>Invoice - ${order.customer.fullName}</title>
-          <style>
-            body { font-family: sans-serif; padding: 20px; }
-            h1 { color: #ffe6c0; }
-            table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-            th, td { border: 1px solid #333; padding: 8px; text-align: left; }
-          </style>
-        </head>
-        <body>
-          <h1>Invoice</h1>
-          <p><strong>Name:</strong> ${order.customer.fullName}</p>
-          <p><strong>Phone:</strong> ${order.customer.phone}</p>
-          <p><strong>Email:</strong> ${order.customer.email}</p>
-          <p><strong>Delivery:</strong> ${order.customer.deliveryDate} · ${order.customer.deliverySlot}</p>
-          <p><strong>Payment ID:</strong> ${order.paymentId}</p>
+  
+// 🧾 PRINT INVOICE
+const printInvoice = (order) => {
+  const invoiceWindow = window.open("", "_blank", "width=800,height=600");
 
-          <h2>Items</h2>
-          <table>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Weight</th>
-                <th>Quantity</th>
-                <th>Subtotal</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${order.items
-                .map(
-                  (item) =>
-                    `<tr>
-                      <td>${item.name}</td>
-                      <td>${item.weight}kg</td>
-                      <td>${item.quantity}</td>
-                      <td>₹${item.weight * item.quantity}</td>
-                    </tr>`
-                )
-                .join("")}
-            </tbody>
-          </table>
+  invoiceWindow.document.write(`
+    <html>
+      <head>
+        <title>Invoice - ${order.customer.fullName}</title>
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            color: #000;
+          }
+          h1 {
+            margin-bottom: 10px;
+          }
+          p {
+            margin: 4px 0;
+          }
+          table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+          }
+          th, td {
+            border: 1px solid #333;
+            padding: 8px;
+            text-align: left;
+          }
+          th {
+            background: #f2f2f2;
+          }
+          .total {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+          }
+        </style>
+      </head>
+      <body>
+<h1 className="text-2xl font-bold justify-center mb-4">Bakemart Paradise</h1>
+        <h1>Invoice</h1>
 
-          <h3>Total: ₹${order.totalAmount}</h3>
-        </body>
-      </html>
-    `);
-    invoiceWindow.document.close();
-    invoiceWindow.print();
-  };
+        <p><strong>Name:</strong> ${order.customer.fullName}</p>
+        <p><strong>Phone:</strong> ${order.customer.phone}</p>
+        <p><strong>Email:</strong> ${order.customer.email}</p>
+        <p><strong>Delivery:</strong> ${order.customer.deliveryDate} · ${order.customer.deliverySlot}</p>
+        <p><strong>Payment ID:</strong> ${order.paymentId}</p>
+
+        <h2>Items</h2>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Weight</th>
+              <th>Quantity</th>
+              <th>Price</th>
+              <th>Subtotal</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${order.items
+              .map((item) => {
+                const quantity = Number(item.quantity) || 0;
+
+// fallback logic for old orders
+const price =
+  Number(item.price) ||
+  (Number(item.subtotal) && quantity
+    ? Number(item.subtotal) / quantity
+    : 0);
+
+const subtotal =
+  Number(item.subtotal) ||
+  price * quantity;
+
+
+
+                return `
+                  <tr>
+                    <td>${item.name}</td>
+                    <td>${item.weight} kg</td>
+                    <td>${quantity}</td>
+                    <td>₹${price}</td>
+                    <td>₹${subtotal}</td>
+                  </tr>
+                `;
+              })
+              .join("")}
+          </tbody>
+        </table>
+
+        <div class="total">
+          Total Amount: ₹${order.totalAmount}
+        </div>
+
+      </body>
+    </html>
+  `);
+
+  invoiceWindow.document.close();
+  invoiceWindow.print();
+};
+
+
 
   if (loading) {
     return (
@@ -193,6 +247,19 @@ export default function AdminOrders() {
     const sortedKeys = Object.keys(dataMap).sort((a, b) => (a < b ? 1 : -1));
     return sortedKeys.map((key) => ({ date: key, ...dataMap[key] }));
   };
+
+  // 📅 FORMATTERS
+const formatDateDDMMYYYY = (isoDate) => {
+  const [year, month, day] = isoDate.split("-");
+  return `${day}-${month}-${year}`;
+};
+
+const formatMonthName = (yearMonth) => {
+  const [year, month] = yearMonth.split("-");
+  const date = new Date(year, month - 1);
+  return `${date.toLocaleString("default", { month: "long" })} ${year}`;
+};
+
 
   return (
     <div className="min-h-screen bg-black text-white p-6 pt-24">
@@ -262,9 +329,14 @@ export default function AdminOrders() {
             {analyticsData().map((item) => (
               <div key={item.date} className="bg-white/10 p-4 rounded-xl">
                 <p className="text-sm text-white/70">
-                  {analyticsView === "daily" ? "Date" : "Month"}:{" "}
-                  <span className="font-semibold">{item.date}</span>
-                </p>
+  {analyticsView === "daily" ? "Date" : "Month"}:{" "}
+  <span className="font-semibold">
+    {analyticsView === "daily"
+      ? formatDateDDMMYYYY(item.date)
+      : formatMonthName(item.date)}
+  </span>
+</p>
+
                 <p className="text-lg mt-1">
                   Orders: <span className="font-bold">{item.orders}</span>
                 </p>
