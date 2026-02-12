@@ -53,7 +53,7 @@ export default function Menu1() {
   const MenuItems = ({ items }) => (
     <div className={`w-full max-w-[280px] sm:max-w-xs opacity-0 ${visible1 ? "animate-fade-in" : ""}`}>
       {items.map((item, i) => (
-        <div key={i} className={`flex justify-between py-[2px] sm:py-1 text-[14px] sm:text-lg ${i !== items.length - 1 ? "border-b border-white/40" : ""}`}>
+        <div key={i} className={`flex justify-between py-[2px] sm:py-1 text-[12px] sm:text-lg ${i !== items.length - 1 ? "border-b border-white/40" : ""}`}>
           <span>{item.name}</span>
           <span>₹{item.price}/-</span>
         </div>
@@ -62,17 +62,101 @@ export default function Menu1() {
   );
 
   const SectionImages = ({ images, burgerCustom, friesCustom, pastaCustom }) => (
-    <div className={`relative flex gap-0 sm:gap-4 ${burgerCustom ? "justify-center items-end" : ""} ${friesCustom ? "justify-center items-start" : ""} ${pastaCustom ? "mt-2 sm:mt-4 justify-center items-end" : ""}`}>
-      {images.map((img, i) => {
-        const anim = visible1 && i === 0 ? "animate-slide-in-left" : visible1 ? "animate-slide-in-right" : "opacity-0";
-        if (burgerCustom && i === 0) return <div key={i} className={anim}><img src={img} className="relative w-28 h-28 sm:w-40 sm:h-40 md:w-44 md:h-44 lg:-top-8 rounded-lg -rotate-[15deg]" /></div>;
-        if (burgerCustom && i === 1) return <div key={i} className={`${anim} -ml-5 sm:-ml-10`}><img src={img} className="relative w-24 h-24 sm:w-32 sm:h-32 md:w-36 md:h-36 lg:-top-6 rounded-lg" /></div>;
-        if (friesCustom) return <div key={i} className={anim}><img src={img} className={`${i === 0 ? "w-28 h-28 sm:w-40 sm:h-40 md:w-44 md:h-44" : "w-28 h-28 sm:w-40 sm:h-40 md:w-40 md:h-44 md:-ml-4"} rounded-lg ${i === 0 ? "-rotate-[15deg]" : "rotate-[15deg]"}`} /></div>;
-        if (pastaCustom) return <div key={i} className={`relative ${anim} ${i === 0 ? "-mt-6 md:mt-0" : "-mt-3 md:mt-0"}`}><img src={img} className={`${i === 0 ? "w-36 h-32" : "w-32 h-28"} sm:w-40 sm:h-40 md:w-44 md:h-44 rounded-lg`} /></div>;
-        return null;
-      })}
-    </div>
-  );
+  <div
+    className={`
+      relative flex gap-0 sm:gap-4
+      justify-center
+      items-center            /* ✅ proper vertical alignment on mobile */
+      
+      /* Desktop keeps original behavior */
+      ${burgerCustom ? "md:items-end" : ""}
+      ${friesCustom ? "md:items-start" : ""}
+      ${pastaCustom ? "md:mt-4 md:items-end" : ""}
+    `}
+  >
+    {images.map((img, i) => {
+      const anim =
+        visible1 && i === 0
+          ? "animate-slide-in-left"
+          : visible1
+          ? "animate-slide-in-right"
+          : "opacity-0";
+
+      /* ================= BURGER ================= */
+      if (burgerCustom && i === 0)
+        return (
+          <div key={i} className={anim}>
+            <img
+              src={img}
+              className="
+                relative w-28 h-28 sm:w-40 sm:h-40 md:w-44 md:h-44
+                lg:-top-8
+                rounded-lg
+                -rotate-[15deg]
+              "
+            />
+          </div>
+        );
+
+      if (burgerCustom && i === 1)
+        return (
+          <div key={i} className={`${anim} -ml-5 sm:-ml-10`}>
+            <img
+              src={img}
+              className="
+                relative w-24 h-24 sm:w-32 sm:h-32 md:w-36 md:h-36
+                lg:-top-6
+                rounded-lg
+              "
+            />
+          </div>
+        );
+
+      /* ================= FRIES ================= */
+      if (friesCustom)
+        return (
+          <div key={i} className={anim}>
+            <img
+              src={img}
+              className={`
+                ${
+                  i === 0
+                    ? "w-28 h-28 sm:w-40 sm:h-40 md:w-44 md:h-44"
+                    : "w-28 h-28 sm:w-40 sm:h-40 md:w-40 md:h-44 md:-ml-4"
+                }
+                rounded-lg
+                ${i === 0 ? "-rotate-[15deg]" : "rotate-[15deg]"}
+              `}
+            />
+          </div>
+        );
+
+      /* ================= PASTA ================= */
+      if (pastaCustom)
+        return (
+          <div
+            key={i}
+            className={`relative ${anim} ${
+              i === 0 ? "-mt-6 md:mt-0" : "-mt-3 md:mt-0"
+            }`}
+          >
+            <img
+              src={img}
+              className={`
+                ${i === 0 ? "w-36 h-32" : "w-32 h-28"}
+                sm:w-40 sm:h-40 md:w-44 md:h-44
+                rounded-lg
+              `}
+            />
+          </div>
+        );
+
+      return null;
+    })}
+  </div>
+);
+
+
 
   return (
     <div className="relative overflow-hidden">
@@ -84,19 +168,20 @@ export default function Menu1() {
 
         <div
   className="
-    flex flex-col md:flex-row gap-4
+    flex flex-col md:flex-row gap-3
     justify-center items-stretch
-    mt-20 sm:mt-28 md:mt-0
-    h-[calc(100vh-6rem)] md:h-[85vh]
+    mt-16 sm:mt-20 md:mt-0
+    md:h-[85vh]
   "
 >
+
 
 
           {["BURGERS","FRIES","PASTA"].map((_,i)=>null)}
           
 
           <div className="flex-1 flex flex-col items-center md:mt-12 min-h-0">
-  <div className="w-full h-full bg-white/5 backdrop-blur-sm border border-white/20 rounded-xl px-3 sm:px-4 py-3 sm:py-4 md:h-[78vh] md:max-h-[78vh] md:overflow-hidden transition-all duration-300 ease-out hover:-translate-y-[10px] hover:ring-1 hover:ring-[#ffbf6b]/90 hover:shadow-[0_0_20px_rgba(255,191,107,0.55),_0_0_40px_rgba(255,191,107,0.65)]">
+  <div className="w-full h-full bg-white/5 backdrop-blur-sm border border-white/20 rounded-xl px-2 sm:px-4 py-2 sm:py-4 md:h-[78vh] md:max-h-[78vh] md:overflow-hidden transition-all duration-300 ease-out hover:-translate-y-[10px] hover:ring-1 hover:ring-[#ffbf6b]/90 hover:shadow-[0_0_20px_rgba(255,191,107,0.55),_0_0_40px_rgba(255,191,107,0.65)]">
 
     {/* ===== DESKTOP (ORIGINAL — DO NOT TOUCH) ===== */}
     <div className="hidden md:flex flex-col md:items-center md:text-center md:-translate-y-10">
@@ -111,7 +196,7 @@ export default function Menu1() {
 
     {/* ===== MOBILE ===== */}
     <div className="flex md:hidden flex-col items-center justify-center h-full">
-      <h3 className="font-['Poppins'] text-xl font-bold mb-3 text-[#ffe6c0]">
+      <h3 className="font-['Poppins'] text-lg font-bold mb-3 text-[#ffe6c0]">
         BURGERS
       </h3>
       <div className="flex gap-3">
@@ -131,7 +216,7 @@ export default function Menu1() {
   <div
     className="
       w-full h-full bg-white/5 backdrop-blur-sm border border-white/20 rounded-xl
-      px-3 sm:px-4 py-3 sm:py-4 flex flex-col
+      px-2 sm:px-4 py-2 sm:py-4 flex flex-col
       md:items-center md:text-center md:pb-8
       transition-all duration-300 ease-out
       hover:-translate-y-[10px]
@@ -142,7 +227,7 @@ export default function Menu1() {
   >
     {/* ===== MOBILE (UNCHANGED) ===== */}
     <div className="flex flex-col md:hidden w-full mt-1 gap-1">
-      <h3 className="font-['Poppins'] text-xl font-bold text-center text-[#ffe6c0]">
+      <h3 className="font-['Poppins'] text-lg font-bold text-center text-[#ffe6c0]">
         FRIES
       </h3>
 
@@ -169,7 +254,7 @@ export default function Menu1() {
           
           
           <div className="flex-1 flex flex-col items-center md:mt-12 min-h-0">
-  <div className="w-full h-full bg-white/5 backdrop-blur-sm border border-white/20 rounded-xl px-3 sm:px-4 py-3 sm:py-4 md:h-[78vh] md:max-h-[78vh] md:overflow-hidden transition-all duration-300 ease-out hover:-translate-y-[10px] hover:ring-1 hover:ring-[#ffbf6b]/90 hover:shadow-[0_0_20px_rgba(255,191,107,.5),_0_0_40px_rgba(255,191,107,.65)]">
+  <div className="w-full h-full bg-white/5 backdrop-blur-sm border border-white/20 rounded-xl px-2 sm:px-4 py-2 sm:py-4 md:h-[78vh] md:max-h-[78vh] md:overflow-hidden transition-all duration-300 ease-out hover:-translate-y-[10px] hover:ring-1 hover:ring-[#ffbf6b]/90 hover:shadow-[0_0_20px_rgba(255,191,107,.5),_0_0_40px_rgba(255,191,107,.65)]">
 
     {/* ===== DESKTOP (ORIGINAL — DO NOT TOUCH) ===== */}
     <div className="hidden md:flex flex-col md:items-center md:text-center md:-translate-y-10">
@@ -184,7 +269,7 @@ export default function Menu1() {
 
     {/* ===== MOBILE ===== */}
     <div className="flex md:hidden flex-col items-center justify-center h-full">
-      <h3 className="font-['Poppins'] text-xl font-bold mb-3 text-[#ffe6c0]">
+      <h3 className="font-['Poppins'] text-lg font-bold mb-3 text-[#ffe6c0]">
         PASTA
       </h3>
       <div className="flex gap-2">
