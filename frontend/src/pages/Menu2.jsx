@@ -44,51 +44,46 @@ export default function Menu2() {
   const fudgyMenu = [{ name: "Brownie with Ice-Cream", price: 100 }];
 
   const MenuItems = ({ items }) => (
-    <div className="w-full max-w-[260px] sm:max-w-[300px]">
-      {items.map((item, i) => (
-        <div
-          key={i}
-          className={`flex justify-between items-center py-[2px] text-[14px] sm:text-lg ${
-            i !== items.length - 1 ? "border-b border-white/40" : ""
-          } ${visible ? "animate-fade-in" : "opacity-0"}`}
-          style={{ animationDelay: `${i * 80}ms` }}
-        >
-          <span className="flex-1 whitespace-nowrap overflow-hidden text-ellipsis pr-2">
-            {item.name}
-          </span>
-          <span className="flex-shrink-0 w-20 text-right">
-            ₹{item.price}/-
-          </span>
-        </div>
-      ))}
-    </div>
-  );
+  <div className="flex-1 min-w-0">
+    {items.map((item, i) => (
+      <div
+        key={i}
+        className={`flex justify-between items-center py-[2px] text-[14px] sm:text-lg ${
+          i !== items.length - 1 ? "border-b border-white/40" : ""
+        } ${visible ? "animate-fade-in" : "opacity-0"}`}
+        style={{ animationDelay: `${i * 80}ms` }}
+      >
+        {/* ITEM NAME */}
+        <span className="flex-1 pr-2 break-words">
+          {item.name}
+        </span>
+
+        {/* PRICE */}
+        <span className="flex-shrink-0 w-20 text-right">
+          ₹{item.price}/-
+        </span>
+      </div>
+    ))}
+  </div>
+);
+
 
   return (
     <div className="relative overflow-hidden" ref={sectionRef}>
+      
       {/* BACKGROUND */}
       <div
         className="fixed inset-0 bg-cover bg-center opacity-70 -z-10"
         style={{ backgroundImage: `url(${bgMain})` }}
       />
 
-      {/* ================= DESKTOP ================= */}
+      {/* ================= DESKTOP (UNCHANGED) ================= */}
       <section className="hidden md:flex h-screen justify-center items-center px-6 text-white pt-28">
         <div className="flex gap-10 items-stretch w-full max-w-6xl">
 
-          {/* ===== BEVERAGES CARD ===== */}
+          {/* BEVERAGES */}
           <div className="flex-1">
-            <div className="
-              w-full h-full
-              bg-white/5 backdrop-blur-sm
-              border border-white/20
-              rounded-xl
-              px-4 py-2
-              transition-all duration-300 ease-out
-              hover:-translate-y-[10px]
-              hover:ring-1 hover:ring-[#ffbf6b]/90
-              hover:shadow-[0_0_20px_rgba(255,191,107,0.55),_0_0_40px_rgba(255,191,107,0.65)]
-            ">
+            <div className="w-full h-full bg-white/5 backdrop-blur-sm border border-white/20 rounded-xl px-4 py-2 transition-all duration-300 ease-out hover:-translate-y-[10px] hover:ring-1 hover:ring-[#ffbf6b]/90 hover:shadow-[0_0_20px_rgba(255,191,107,0.55),_0_0_40px_rgba(255,191,107,0.65)]">
               <div className="flex flex-col gap-4 items-center -mt-14">
                 <h3 className="text-[#ffe6c0] font-['Poppins'] text-4xl font-bold mb-1">
                   BEVERAGES
@@ -117,19 +112,9 @@ export default function Menu2() {
             </div>
           </div>
 
-          {/* ===== FUDGY CARD ===== */}
+          {/* FUDGY */}
           <div className="flex-1">
-            <div className="
-              w-full h-full
-              bg-white/5 backdrop-blur-sm
-              border border-white/20
-              rounded-xl
-              px-4 py-2
-              transition-all duration-300 ease-out
-              hover:-translate-y-[10px]
-              hover:ring-1 hover:ring-[#ffbf6b]/90
-              hover:shadow-[0_0_20px_rgba(255,191,107,0.55),_0_0_40px_rgba(255,191,107,0.65)]
-            ">
+            <div className="w-full h-full bg-white/5 backdrop-blur-sm border border-white/20 rounded-xl px-4 py-2 transition-all duration-300 ease-out hover:-translate-y-[10px] hover:ring-1 hover:ring-[#ffbf6b]/90 hover:shadow-[0_0_20px_rgba(255,191,107,0.55),_0_0_40px_rgba(255,191,107,0.65)]">
               <div className="flex flex-col gap-2 items-center -mt-14">
                 <h3 className="text-[#ffe6c0] font-['Poppins'] text-4xl font-bold mb-1">
                   FUDGY DELIGHTS
@@ -151,87 +136,93 @@ export default function Menu2() {
       </section>
 
       {/* ================= MOBILE ================= */}
-      <section className="md:hidden min-h-screen px-4 pt-20 pb-10 text-white flex flex-col gap-6">
+<section className="md:hidden w-full px-4 pt-16 pb-10 text-white flex flex-col gap-6">
 
-
-      {/* BEVERAGES CARD */}
-        <div className="
+  {/* BEVERAGES CARD */}
+  <div className="
   w-full
   bg-white/5 backdrop-blur-sm
   border border-white/20
   rounded-xl
   px-4 py-5
   transition-all duration-300 ease-out
-  hover:-translate-y-[8px]
+  hover:-translate-y-[6px]
   hover:ring-1 hover:ring-[#ffbf6b]/90
   hover:shadow-[0_0_20px_rgba(255,191,107,0.55),_0_0_40px_rgba(255,191,107,0.65)]
 ">
 
 
+    <div className="flex flex-col items-center gap-5 -mt-3">
+      <h3 className="text-[#ffe6c0] font-['Poppins'] text-2xl font-bold">
+        BEVERAGES
+      </h3>
 
-          <div className="flex flex-col items-center gap-5">
-            <h3 className="text-[#ffe6c0] font-['Poppins'] text-2xl font-bold">
-              BEVERAGES
-            </h3>
-
-            <div className="flex gap-3 items-center">
-              <MenuItems items={beverageMenu.slice(0, 6)} />
-              <img
-                src={s1}
-                className={`w-24 h-24 object-contain ${
-                  visible ? "animate-slide-in-right" : "opacity-0"
-                }`}
-              />
-            </div>
-
-            <div className="flex gap-3 items-center pr-3">
-              <img
-                src={s2}
-                className={`w-28 h-28 object-contain ${
-                  visible ? "animate-slide-in-left" : "opacity-0"
-                }`}
-              />
-              <div className="-ml-5">
-                <MenuItems items={beverageMenu.slice(6)} />
-              </div>
-            </div>
-          </div>
+      {/* FIRST ROW */}
+      <div className="flex w-full items-center gap-3 -mt-4">
+        <div className="flex-1 min-w-0">
+          <MenuItems items={beverageMenu.slice(0, 6)} />
         </div>
 
-        {/* FUDGY CARD */}
-        <div className="
+        <img
+          src={s1}
+          className={`w-24 h-24 object-contain flex-shrink-0 ${
+            visible ? "animate-slide-in-right" : "opacity-0"
+          }`}
+        />
+      </div>
+
+      {/* SECOND ROW */}
+      <div className="flex w-full items-center gap-0 -ml-8 -mt-2 -mb-2">
+        <img
+          src={s2}
+          className={`w-28 h-28 object-contain flex-shrink-0 ${
+            visible ? "animate-slide-in-left" : "opacity-0"
+          }`}
+        />
+
+        <div className="flex-1 min-w-0">
+          <MenuItems items={beverageMenu.slice(6)} />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {/* FUDGY CARD */}
+  <div className="
   w-full
   bg-white/5 backdrop-blur-sm
   border border-white/20
   rounded-xl
-  px-4 py-5
+  px-4 py-3 -mt-2
   transition-all duration-300 ease-out
-  hover:-translate-y-[8px]
+  hover:-translate-y-[6px]
   hover:ring-1 hover:ring-[#ffbf6b]/90
   hover:shadow-[0_0_20px_rgba(255,191,107,0.55),_0_0_40px_rgba(255,191,107,0.65)]
 ">
 
 
+    <div className="flex flex-col items-center text-center gap-3">
+      <h3 className="text-[#ffe6c0] font-['Poppins'] text-2xl font-bold">
+        FUDGY DELIGHTS
+      </h3>
 
-          <div className="flex flex-col items-center text-center gap-3">
-            <h3 className="text-[#ffe6c0] font-['Poppins'] text-2xl font-bold">
-              FUDGY DELIGHTS
-            </h3>
+      <div className="w-full">
+        <MenuItems items={fudgyMenu} />
+      </div>
 
-            <MenuItems items={fudgyMenu} />
+      <img
+        src={fm1}
+        className={`w-32 h-32 object-contain ${
+          visible ? "animate-zoom-in" : "opacity-0"
+        }`}
+      />
+    </div>
+  </div>
 
-            <img
-              src={fm1}
-              className={`w-32 h-32 object-contain ${
-                visible ? "animate-zoom-in" : "opacity-0"
-              }`}
-            />
-          </div>
-        </div>
+</section>
 
-      </section>
 
-      {/* ================= ANIMATIONS ================= */}
+      {/* ANIMATIONS */}
       <style>
         {`
           @keyframes fade-in {
