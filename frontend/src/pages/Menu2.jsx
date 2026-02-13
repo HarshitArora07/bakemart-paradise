@@ -54,12 +54,14 @@ export default function Menu2() {
         style={{ animationDelay: `${i * 80}ms` }}
       >
         {/* ITEM NAME */}
-        <span className="flex-1 pr-2 break-words">
-          {item.name}
-        </span>
+        <span className="flex-1 pr-2 truncate md:whitespace-normal">
+  {item.name}
+</span>
+
 
         {/* PRICE */}
-        <span className="flex-shrink-0 w-20 text-right">
+        <span className="flex-shrink-0 w-16 sm:w-20 text-right">
+
           ₹{item.price}/-
         </span>
       </div>
@@ -78,13 +80,14 @@ export default function Menu2() {
       />
 
       {/* ================= DESKTOP (UNCHANGED) ================= */}
-      <section className="hidden md:flex h-screen justify-center items-center px-6 text-white pt-28">
+      <section className="hidden md:flex min-h-screen justify-center items-start px-6 text-white pt-20 pb-20">
+
         <div className="flex gap-10 items-stretch w-full max-w-6xl">
 
           {/* BEVERAGES */}
           <div className="flex-1">
-            <div className="w-full h-full bg-white/5 backdrop-blur-sm border border-white/20 rounded-xl px-4 py-2 transition-all duration-300 ease-out hover:-translate-y-[10px] hover:ring-1 hover:ring-[#ffbf6b]/90 hover:shadow-[0_0_20px_rgba(255,191,107,0.55),_0_0_40px_rgba(255,191,107,0.65)]">
-              <div className="flex flex-col gap-4 items-center -mt-14">
+            <div className="w-full h-full bg-white/5 backdrop-blur-sm border  border-white/20 rounded-xl px-4 py-1 transition-all duration-300 ease-out hover:-translate-y-[10px] hover:ring-1 hover:ring-[#ffbf6b]/90 hover:shadow-[0_0_20px_rgba(255,191,107,0.55),_0_0_40px_rgba(255,191,107,0.65)]">
+              <div className="flex flex-col gap-4 items-center -mt-18 ">
                 <h3 className="text-[#ffe6c0] font-['Poppins'] text-4xl font-bold mb-1">
                   BEVERAGES
                 </h3>
@@ -114,14 +117,15 @@ export default function Menu2() {
 
           {/* FUDGY */}
           <div className="flex-1">
-            <div className="w-full h-full bg-white/5 backdrop-blur-sm border border-white/20 rounded-xl px-4 py-2 transition-all duration-300 ease-out hover:-translate-y-[10px] hover:ring-1 hover:ring-[#ffbf6b]/90 hover:shadow-[0_0_20px_rgba(255,191,107,0.55),_0_0_40px_rgba(255,191,107,0.65)]">
-              <div className="flex flex-col gap-2 items-center -mt-14">
+            <div className="w-full h-full bg-white/5 backdrop-blur-sm border  border-white/20 rounded-xl px-4 py-2 transition-all duration-300 ease-out hover:-translate-y-[10px] hover:ring-1 hover:ring-[#ffbf6b]/90 hover:shadow-[0_0_20px_rgba(255,191,107,0.55),_0_0_40px_rgba(255,191,107,0.65)]">
+              <div className="flex flex-col gap-2 items-center -mt-18">
                 <h3 className="text-[#ffe6c0] font-['Poppins'] text-4xl font-bold mb-1">
                   FUDGY DELIGHTS
                 </h3>
 
+                <div className="mt-4">
                 <MenuItems items={fudgyMenu} />
-
+</div>
                 <img
                   src={fm1}
                   className={`w-80 h-80 object-contain ${
@@ -206,9 +210,24 @@ export default function Menu2() {
         FUDGY DELIGHTS
       </h3>
 
-      <div className="w-full">
-        <MenuItems items={fudgyMenu} />
+      <div className="w-full flex justify-center">
+  <div className="w-full max-w-xs">
+    {fudgyMenu.map((item, i) => (
+      <div
+        key={i}
+        className={`flex justify-center items-center py-[2px] text-[14px] ${
+          visible ? "animate-fade-in" : "opacity-0"
+        }`}
+        style={{ animationDelay: `${i * 80}ms` }}
+      >
+        <span className="text-center">
+          {item.name} &nbsp; ₹{item.price}/-
+        </span>
       </div>
+    ))}
+  </div>
+</div>
+
 
       <img
         src={fm1}
