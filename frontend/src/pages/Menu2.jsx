@@ -151,16 +151,26 @@ export default function Menu2() {
       </section>
 
       {/* ================= MOBILE ================= */}
-      <section className="md:hidden px-4 pt-20 pb-10 text-white space-y-8">
+      <section className="md:hidden h-screen px-4 pt-16 pb-4 text-white flex flex-col justify-between gap-4 overflow-hidden">
 
-        {/* BEVERAGES CARD */}
+      {/* BEVERAGES CARD */}
         <div className="
-          w-full
-          bg-white/5 backdrop-blur-sm
-          border border-white/20
-          rounded-xl
-          px-4 py-4
-        ">
+  flex-1
+  w-full
+  bg-white/5 backdrop-blur-sm
+  border border-white/20
+  rounded-xl
+  px-4 py-3
+  flex flex-col justify-center
+  overflow-hidden
+
+  transition-all duration-300 ease-out
+  hover:-translate-y-[8px]
+  hover:ring-1 hover:ring-[#ffbf6b]/90
+  hover:shadow-[0_0_20px_rgba(255,191,107,0.55),_0_0_40px_rgba(255,191,107,0.65)]
+">
+
+
           <div className="flex flex-col items-center gap-5">
             <h3 className="text-[#ffe6c0] font-['Poppins'] text-2xl font-bold">
               BEVERAGES
@@ -192,12 +202,22 @@ export default function Menu2() {
 
         {/* FUDGY CARD */}
         <div className="
-          w-full
-          bg-white/5 backdrop-blur-sm
-          border border-white/20
-          rounded-xl
-          px-4 py-4
-        ">
+  flex-1
+  w-full
+  bg-white/5 backdrop-blur-sm
+  border border-white/20
+  rounded-xl
+  px-4 py-3
+  flex flex-col justify-center
+  overflow-hidden
+
+  transition-all duration-300 ease-out
+  hover:-translate-y-[8px]
+  hover:ring-1 hover:ring-[#ffbf6b]/90
+  hover:shadow-[0_0_20px_rgba(255,191,107,0.55),_0_0_40px_rgba(255,191,107,0.65)]
+">
+
+
           <div className="flex flex-col items-center text-center gap-3">
             <h3 className="text-[#ffe6c0] font-['Poppins'] text-2xl font-bold">
               FUDGY DELIGHTS
