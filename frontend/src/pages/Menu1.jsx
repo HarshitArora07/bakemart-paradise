@@ -163,7 +163,7 @@ export default function Menu1() {
       <div className="fixed inset-0 bg-cover bg-center opacity-70 -z-10" style={{ backgroundImage: `url(${bgMain})` }} />
       <section ref={section1Ref} className="min-h-screen flex flex-col justify-start md:justify-center px-4 sm:px-6 pt-10 sm:pt-16 text-white">
         <div className="absolute top-16 sm:top-20 md:top-12 left-1/2 -translate-x-1/2">
-          <h1 className="font-['Cinzel'] text-xl sm:text-3xl md:text-5xl font-bold animate-fade-in whitespace-nowrap text-[#edcb97]">What We Serve ! ! !</h1>
+          <h1 className="font-['Cinzel'] text-xl sm:text-4xl md:text-5xl font-bold animate-fade-in whitespace-nowrap text-[#edcb97]">What We Serve ! ! !</h1>
         </div>
 
         <div
@@ -196,7 +196,7 @@ export default function Menu1() {
 
     {/* ===== MOBILE ===== */}
     <div className="flex md:hidden flex-col items-center justify-center h-full">
-      <h3 className="font-['Poppins'] text-lg font-bold mb-3 text-[#ffe6c0]">
+      <h3 className="font-['Poppins'] text-xl font-bold mb-3 text-[#ffe6c0]">
         BURGERS
       </h3>
       <div className="flex gap-3">
@@ -227,7 +227,7 @@ export default function Menu1() {
   >
     {/* ===== MOBILE (UNCHANGED) ===== */}
     <div className="flex flex-col md:hidden w-full mt-1 gap-1">
-      <h3 className="font-['Poppins'] text-lg font-bold text-center text-[#ffe6c0]">
+      <h3 className="font-['Poppins'] text-xl font-bold text-center text-[#ffe6c0]">
         FRIES
       </h3>
 
@@ -269,7 +269,7 @@ export default function Menu1() {
 
     {/* ===== MOBILE ===== */}
     <div className="flex md:hidden flex-col items-center justify-center h-full">
-      <h3 className="font-['Poppins'] text-lg font-bold mb-3 text-[#ffe6c0]">
+      <h3 className="font-['Poppins'] text-xl font-bold mb-3 text-[#ffe6c0]">
         PASTA
       </h3>
       <div className="flex gap-2">
