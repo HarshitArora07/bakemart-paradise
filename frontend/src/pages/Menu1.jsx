@@ -199,7 +199,7 @@ export default function Menu1() {
       <h3 className="font-['Poppins'] text-xl font-bold mb-3 text-[#ffe6c0]">
         BURGERS
       </h3>
-      <div className="flex gap-3 text-xl">
+      <div className="flex gap-3">
         <MenuItems items={burgerMenu} />
         <SectionImages images={[b1, b2]} burgerCustom />
       </div>
@@ -231,7 +231,7 @@ export default function Menu1() {
         FRIES
       </h3>
 
-      <div className="flex gap-2 text-xl">
+      <div className="flex gap-2">
         <SectionImages images={[f1, f2]} friesCustom />
         <MenuItems items={friesMenu} />
       </div>
@@ -272,7 +272,7 @@ export default function Menu1() {
       <h3 className="font-['Poppins'] text-xl font-bold mb-3 text-[#ffe6c0]">
         PASTA
       </h3>
-      <div className="flex gap-2 text-xl">
+      <div className="flex gap-2">
         <MenuItems items={pastaMenu} />
         <SectionImages images={[p1, p2]} pastaCustom />
       </div>
