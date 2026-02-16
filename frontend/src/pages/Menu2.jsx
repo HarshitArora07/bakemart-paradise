@@ -88,7 +88,7 @@ export default function Menu2() {
           <div className="flex-1">
             <div className="w-full h-full bg-white/5 backdrop-blur-sm border  border-white/20 rounded-xl px-4 py-1 transition-all duration-300 ease-out hover:-translate-y-[10px] hover:ring-1 hover:ring-[#ffbf6b]/90 hover:shadow-[0_0_20px_rgba(255,191,107,0.55),_0_0_40px_rgba(255,191,107,0.65)]">
               <div className="flex flex-col gap-4 items-center -mt-18 ">
-                <h3 className="text-[#ffe6c0] font-['Poppins'] text-4xl font-bold mb-1">
+                <h3 className="text-[#ffe6c0] font-['Poppins'] text-4xl font-bold p-3 -mb-5">
                   BEVERAGES
                 </h3>
 
@@ -119,7 +119,7 @@ export default function Menu2() {
           <div className="flex-1">
             <div className="w-full h-full bg-white/5 backdrop-blur-sm border  border-white/20 rounded-xl px-4 py-2 transition-all duration-300 ease-out hover:-translate-y-[10px] hover:ring-1 hover:ring-[#ffbf6b]/90 hover:shadow-[0_0_20px_rgba(255,191,107,0.55),_0_0_40px_rgba(255,191,107,0.65)]">
               <div className="flex flex-col gap-2 items-center -mt-18">
-                <h3 className="text-[#ffe6c0] font-['Poppins'] text-4xl font-bold mb-1">
+                <h3 className="text-[#ffe6c0] font-['Poppins'] text-4xl font-bold p-3 -mb-5">
                   FUDGY DELIGHTS
                 </h3>
 

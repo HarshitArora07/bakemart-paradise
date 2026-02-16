@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <section className="h-full w-full flex flex-col items-center justify-center relative pt-32 text-white font-modern">
       {/* Logo */}
-      <div className="absolute top-6 left-6">
+      <div className="absolute top-2 left-2 md:top-6 md:left-6">
         <img
           src={logo}
           alt="Bakemart Paradise Logo"
