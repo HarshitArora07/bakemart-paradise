@@ -83,7 +83,7 @@ export default function Menu3() {
     };
 
     return (
-      <div className="bg-white/10 rounded-2xl p-3 sm:p-3 w-full max-w-[200px]">
+      <div className="bg-white/5 backdrop-blur-sm border  border-white/20 rounded-2xl p-3 sm:p-3 w-full max-w-[200px]">
         <div className="w-full h-24 sm:h-32 rounded-xl mb-2 overflow-hidden">
           <img
             src={cake.image}

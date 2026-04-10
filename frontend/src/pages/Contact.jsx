@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import c from "../assets/contact/c.png";
+import c1 from "../assets/contact/c1.png";
 import c2 from "../assets/contact/c2.png";
 import c3 from "../assets/contact/c3.png";
 
@@ -62,7 +62,7 @@ export default function Contact() {
               }`}
               style={{ transitionDelay: "0.2s" }}
             >
-              <img src={c} alt="Phone" className="w-7 h-7 md:w-9 md:h-9" />
+              <img src={c1} alt="Phone" className="w-7 h-7 md:w-9 md:h-9" />
               <a href="tel:+918954483483" className="hover:underline">
                 +91 8954483483
               </a>
