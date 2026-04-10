@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import api from "../services/api";
 
 export default function AdminOrders() {
   const [orders, setOrders] = useState([]);
@@ -21,9 +22,9 @@ export default function AdminOrders() {
   const [analyticsView, setAnalyticsView] = useState("daily"); // "daily" or "monthly"
 
   useEffect(() => {
-    fetch("https://bakemart-backend.onrender.com/api/orders")
-      .then((res) => res.json())
-      .then((data) => {
+    api.get("/api/orders")
+      .then((res) => {
+        const data = res.data;
         setOrders(data);
         setFilteredOrders(data);
 
@@ -32,6 +33,10 @@ export default function AdminOrders() {
           applyFilters(data);
         }
 
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("❌ Fetch Orders Error:", err);
         setLoading(false);
       });
   }, []);

@@ -1,7 +1,7 @@
-// ... your existing imports
 import React, { useState } from "react";
 import { useCart } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
+import api from "../services/api";
 
 export default function CheckoutPage() {
   const { cart, clearCart } = useCart();
@@ -68,35 +68,23 @@ export default function CheckoutPage() {
 
   try {
     // STEP 1: create fake order
-    const res = await fetch(
-      "https://bakemart-backend.onrender.com/api/create-order",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ amount: total * 100 }),
-      }
-    );
+    const res = await api.post("/api/create-order", {
+      amount: total * 100,
+    });
 
-    const data = await res.json();
+    const data = res.data;
 
     // STEP 2: simulate payment success
     const fakePaymentId = "pay_" + Date.now();
 
     // STEP 3: save order
-    await fetch(
-      "https://bakemart-backend.onrender.com/api/save-order",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          items: cart,
-          totalAmount: total,
-          customer: formData,
-          paid: true,
-          paymentId: fakePaymentId,
-        }),
-      }
-    );
+    await api.post("/api/save-order", {
+      items: cart,
+      totalAmount: total,
+      customer: formData,
+      paid: true,
+      paymentId: fakePaymentId,
+    });
 
     clearCart();
     alert("✅ Order placed successfully!");
