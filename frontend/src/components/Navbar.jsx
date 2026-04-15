@@ -30,7 +30,7 @@ export default function Navbar() {
           About
         </button>
 
-        <button onClick={() => scrollTo("menu1")} className="hover:underline">
+        <button onClick={() => scrollTo("menu")} className="hover:underline">
           Menu
         </button>
 

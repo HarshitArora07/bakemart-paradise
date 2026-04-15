@@ -2,9 +2,7 @@ import Navbar from "./components/Navbar";
 import AdminOrders from "./pages/AdminOrders";
 import Home from "./pages/Home";
 import About from "./pages/About";
-import Menu1 from "./pages/Menu1";
-import Menu2 from "./pages/Menu2";
-import Menu3 from "./pages/Menu3";
+import TabbedMenuPage from "./pages/TabbedMenuPage";
 import Contact from "./pages/Contact";
 import Footer from "./components/Footer";
 import bgImage from "./assets/bg-main.png";
@@ -48,16 +46,8 @@ export default function App() {
                       <About />
                     </section>
 
-                    <section id="menu1" className="snap-start h-screen">
-                      <Menu1 />
-                    </section>
-
-                    <section id="menu2" className="snap-start h-screen">
-                      <Menu2 />
-                    </section>
-
-                    <section id="menu3" className="snap-start min-h-screen">
-                      <Menu3 />
+                    <section id="menu" className="snap-start min-h-screen">
+                      <TabbedMenuPage />
                     </section>
 
                     <section id="contact" className="snap-start h-screen">
