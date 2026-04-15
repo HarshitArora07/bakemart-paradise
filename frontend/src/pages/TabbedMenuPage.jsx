@@ -94,7 +94,7 @@ const TabbedMenuPage = () => {
         : categories.find(c => c.id === activeTab)?.bg || bgDefault;
 
     return (
-        <div className="relative h-screen md:overflow-hidden flex flex-col pt-24 md:pt-20">
+        <div className="relative h-screen md:overflow-hidden flex flex-col pt-14 md:pt-20">
             {/* CROSS-FADE BACKGROUND */}
             <AnimatePresence mode="wait">
                 <motion.div

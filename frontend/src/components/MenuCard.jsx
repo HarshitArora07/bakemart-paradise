@@ -49,7 +49,7 @@ const MenuCard = ({ title, items, images, categoryType }) => {
   <div className="flex flex-col items-center justify-center gap-6 w-full">
 
     {/* Title */}
-    <h3 className="font-royal text-xl sm:text-3xl font-bold text-[#ffe6c0] uppercase tracking-widest leading-tight text-center">
+    <h3 className="font-royal text-xl sm:text-xl font-bold text-[#ffe6c0] uppercase tracking-widest leading-tight text-center">
       {title}
     </h3>
 
