@@ -110,7 +110,7 @@ const TabbedMenuPage = () => {
 
             {/* TAB HEADER - Now sitting naturally in the flex flow */}
             <div className="w-full max-w-4xl mx-auto px-4 mb-4 md:mb-6 relative z-10">
-                <div className="flex justify-center flex-nowrap overflow-x-auto scrollbar-hide gap-4 sm:gap-8 border-b border-white/20 pb-2 px-2">
+                <div className="flex justify-start md:justify-center flex-nowrap overflow-x-auto scrollbar-hide gap-4 sm:gap-8 border-b border-white/20 pb-2 px-2">
                     {categories.map((cat) => (
                         <button
                             key={cat.id}
