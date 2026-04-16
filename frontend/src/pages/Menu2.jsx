@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
-import bgMain from "../assets/bg-main.png";
+import { motion } from "framer-motion";
 
-// BEVERAGE & FUDGY IMAGES
+// import bgMain from "../assets/bg-main.png";
 import s1 from "../assets/menu/s1.png";
 import s2 from "../assets/menu/s2.png";
+import s3 from "../assets/menu/s3.png";
+import s4 from "../assets/menu/s4.png";
+
 import fm1 from "../assets/menu/fm1.png";
 
 export default function Menu2() {
@@ -12,261 +15,349 @@ export default function Menu2() {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setVisible(true);
-            observer.disconnect();
-          }
-        });
+      ([entry]) => {
+        if (entry.isIntersecting) setVisible(true);
       },
-      { threshold: 0.2 }
+      { threshold: 0.15 }
     );
 
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
 
-  const beverageMenu = [
-    { name: "Cold Coffee", price: 80 },
-    { name: "Chocolate Shake", price: 80 },
-    { name: "Brownie Shake", price: 120 },
-    { name: "Oreo Shake", price: 120 },
-    { name: "KitKat Shake", price: 120 },
-    { name: "Nutella Shake", price: 150 },
-    { name: "Hazelnut Shake", price: 150 },
-    { name: "Strawberry Shake", price: 100 },
-    { name: "ButterScotch Shake", price: 100 },
-    { name: "Blueberry Shake", price: 100 },
-    { name: "Black-Currant Shake", price: 100 },
-  ];
+  const beverageMenu = {
+    classic: [
+      { name: "Cold Coffee", price: 80 },
+      { name: "Chocolate Shake", price: 80 },
+    ],
+    premium: [
+      { name: "Brownie Shake", price: 120, tag: "Best Seller" },
+      { name: "Oreo Shake", price: 120 },
+      { name: "KitKat Shake", price: 120 },
+    ],
+    deluxe: [
+      { name: "Nutella Shake", price: 150, tag: "Popular" },
+      { name: "Hazelnut Shake", price: 150 },
+    ],
+    fruity: [
+      { name: "Strawberry Shake", price: 100 },
+      { name: "ButterScotch Shake", price: 100 },
+      { name: "Blueberry Shake", price: 100 },
+      { name: "Black-Currant Shake", price: 100 },
+    ],
+  };
 
-  const fudgyMenu = [{ name: "Brownie with Ice-Cream", price: 100 }];
+  const FloatingImage = ({ src, className = "", delay = 0 }) => (
+    <motion.img
+      src={src}
+      className={className}
+      animate={{ y: [0, -10, 0], rotate: [0, 2, -2, 0] }}
+      transition={{
+        duration: 4,
+        repeat: Infinity,
+        ease: "easeInOut",
+        delay,
+      }}
+    />
+  );
 
-  const MenuItems = ({ items }) => (
-  <div className="flex-1 min-w-0">
-    {items.map((item, i) => (
-      <div
-        key={i}
-        className={`flex justify-between items-center py-[2px] text-[14px] sm:text-lg ${
-          i !== items.length - 1 ? "border-b border-white/40" : ""
-        } ${visible ? "animate-fade-in" : "opacity-0"}`}
-        style={{ animationDelay: `${i * 80}ms` }}
-      >
-        {/* ITEM NAME */}
-        <span className="flex-1 pr-2 truncate md:whitespace-normal">
-  {item.name}
-</span>
+  const GlowOrb = ({ size = "w-20 h-20" }) => (
+    <motion.div
+      className={`absolute ${size} bg-[#ffbf6b]/25 blur-2xl rounded-full`}
+      animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0.6, 0.3] }}
+      transition={{ duration: 3.5, repeat: Infinity }}
+    />
+  );
 
+  const MenuItem = ({ item, index, last }) => (
+    <div
+      className={`flex justify-between items-center py-[5px] ${
+        !last ? "border-b border-white/20" : ""
+      } ${visible ? "animate-fade-in" : "opacity-0"}`}
+      style={{ animationDelay: `${index * 60}ms` }}
+    >
+      <span className="flex items-center gap-2 text-white/90 text-sm">
+        {item.name}
+        {item.tag && (
+          <span className="text-[9px] bg-[#ffbf6b] text-black px-2 rounded">
+            {item.tag}
+          </span>
+        )}
+      </span>
+      <span className="text-[#ffbf6b] font-semibold">₹{item.price}</span>
+    </div>
+  );
 
-        {/* PRICE */}
-        <span className="flex-shrink-0 w-16 sm:w-20 text-right">
-
-          ₹{item.price}/-
-        </span>
-      </div>
-    ))}
-  </div>
-);
-
+  const CategoryBlock = ({ title, items }) => (
+    <div>
+      <p className="text-[10px] text-[#ffbf6b]/70 uppercase mb-1">
+        {title}
+      </p>
+      {items.map((item, i) => (
+        <MenuItem
+          key={i}
+          item={item}
+          index={i}
+          last={i === items.length - 1}
+        />
+      ))}
+    </div>
+  );
 
   return (
-    <div className="relative overflow-hidden" ref={sectionRef}>
+    <div ref={sectionRef} className="relative w-full min-h-[600px] overflow-hidden">
+
       
-      {/* BACKGROUND */}
-      <div
-        className="fixed inset-0 bg-cover bg-center opacity-70 -z-10"
-        style={{ backgroundImage: `url(${bgMain})` }}
-      />
 
-      {/* ================= DESKTOP (UNCHANGED) ================= */}
-      <section className="hidden md:flex min-h-screen justify-center items-start px-6 text-white pt-20 pb-20">
+      {/* ================= DESKTOP ================= */}
+      <section className="hidden md:grid grid-cols-[1fr_340px] gap-6 w-full px-6 py-1 text-white relative z-10">
 
-        <div className="flex gap-10 items-stretch w-full max-w-6xl">
+        {/* BEVERAGES */}
+<div className="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl flex flex-col">
 
-          {/* BEVERAGES */}
-          <div className="flex-1">
-            <div className="w-full h-full bg-white/5 backdrop-blur-sm border  border-white/20 rounded-xl px-4 py-1 transition-all duration-300 ease-out hover:-translate-y-[10px] hover:ring-1 hover:ring-[#ffbf6b]/90 hover:shadow-[0_0_20px_rgba(255,191,107,0.55),_0_0_40px_rgba(255,191,107,0.65)]">
-              <div className="flex flex-col gap-4 items-center -mt-18 ">
-                <h3 className="text-[#ffe6c0] font-['Poppins'] text-4xl font-bold p-3 -mb-5">
-                  BEVERAGES
-                </h3>
+  {/* HEADER */}
+  <div className="text-center py-4 border-b border-white/10">
+    <h3 className="text-[#ffe6c0] text-3xl font-bold tracking-widest">
+      BEVERAGES
+    </h3>
+  </div>
 
-                <div className={`flex gap-4 items-center ${visible ? "animate-fade-in" : "opacity-0"}`}>
-                  <MenuItems items={beverageMenu.slice(0, 6)} />
-                  <img
-                    src={s1}
-                    className={`w-52 h-52 object-contain ${
-                      visible ? "animate-slide-in-right" : "opacity-0"
-                    }`}
-                  />
-                </div>
+  {/* BODY */}
+<div className="grid grid-cols-1 lg:grid-cols-2 gap-6 px-6 py-5">
 
-                <div className={`flex gap-4 items-center -mt-2 ${visible ? "animate-fade-in" : "opacity-0"}`}>
-                  <img
-                    src={s2}
-                    className={`w-52 h-52 object-contain ${
-                      visible ? "animate-slide-in-left" : "opacity-0"
-                    }`}
-                  />
-                  <MenuItems items={beverageMenu.slice(6)} />
-                </div>
-              </div>
-            </div>
+  {/* LEFT COLUMN */}
+  <div className="space-y-6 border-r border-white/10 pr-4">
+
+    {/* CLASSIC */}
+    <div className="flex items-center justify-between gap-4 border-b border-white/10 pb-4">
+      
+      {/* TEXT */}
+      <div className="flex-1">
+        <p className="text-[13px] text-[#ffbf6b]/80 tracking-[0.25em] uppercase mb-2">
+          Classic
+        </p>
+
+        {beverageMenu.classic.map((item, i) => (
+          <div key={i} className="flex justify-between text-base text-white/90">
+            <span>{item.name}</span>
+            <span className="text-[#ffbf6b]">₹{item.price}</span>
+          </div>
+        ))}
+      </div>
+
+      {/* IMAGE (CENTERED + BIGGER) */}
+      <div className="relative flex items-center justify-center flex-shrink-0">
+        <div className="w-24 h-24 md:w-28 md:h-28 lg:w-32 lg:h-32">
+          <GlowOrb size="w-20 h-20 md:w-24 md:h-24" />
+          <FloatingImage src={s1} className="w-full h-full object-contain" />
+        </div>
+      </div>
+    </div>
+
+    {/* PREMIUM */}
+    <div className="flex items-center justify-between gap-4">
+      
+      <div className="flex-1">
+        <p className="text-[13px] text-[#ffbf6b]/80 tracking-[0.25em] uppercase mb-2">
+          Premium
+        </p>
+
+        {beverageMenu.premium.map((item, i) => (
+          <div key={i} className="flex justify-between text-base text-white/90">
+            <span className="flex items-center gap-2">
+              {item.name}
+              {item.tag && (
+                <span className="text-[10px] bg-[#ffbf6b] text-black px-2 py-[2px] rounded">
+                  {item.tag}
+                </span>
+              )}
+            </span>
+            <span className="text-[#ffbf6b]">₹{item.price}</span>
+          </div>
+        ))}
+      </div>
+
+      <div className="relative flex items-center justify-center flex-shrink-0">
+        <div className="w-24 h-24 md:w-28 md:h-28 lg:w-32 lg:h-32">
+          <GlowOrb size="w-20 h-20 md:w-24 md:h-24" />
+          <FloatingImage src={s2} delay={0.3} className="w-full h-full object-contain" />
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  {/* RIGHT COLUMN */}
+  <div className="space-y-6 pl-4">
+
+    {/* DELUXE */}
+    <div className="flex items-center justify-between gap-4 border-b border-white/10 pb-4">
+      
+      <div className="flex-1">
+        <p className="text-[13px] text-[#ffbf6b]/80 tracking-[0.25em] uppercase mb-2">
+          Deluxe
+        </p>
+
+        {beverageMenu.deluxe.map((item, i) => (
+          <div key={i} className="flex justify-between text-base text-white/90">
+            <span className="flex items-center gap-2">
+              {item.name}
+              {item.tag && (
+                <span className="text-[10px] bg-[#ffbf6b] text-black px-2 py-[2px] rounded">
+                  {item.tag}
+                </span>
+              )}
+            </span>
+            <span className="text-[#ffbf6b]">₹{item.price}</span>
+          </div>
+        ))}
+      </div>
+
+      <div className="relative flex items-center justify-center flex-shrink-0">
+        <div className="w-24 h-24 md:w-28 md:h-28 lg:w-32 lg:h-32">
+          <GlowOrb size="w-20 h-20 md:w-24 md:h-24" />
+          <FloatingImage src={s3} delay={0.5} className="w-full h-full object-contain" />
+        </div>
+      </div>
+    </div>
+
+    {/* FRUITY */}
+    <div className="flex items-center justify-between gap-4">
+      
+      <div className="flex-1">
+        <p className="text-[13px] text-[#ffbf6b]/80 tracking-[0.25em] uppercase mb-2">
+          Fruity
+        </p>
+
+        {beverageMenu.fruity.map((item, i) => (
+          <div key={i} className="flex justify-between text-base text-white/90">
+            <span>{item.name}</span>
+            <span className="text-[#ffbf6b]">₹{item.price}</span>
+          </div>
+        ))}
+      </div>
+
+      <div className="relative flex items-center justify-center flex-shrink-0">
+        <div className="w-24 h-24 md:w-28 md:h-28 lg:w-32 lg:h-32">
+          <GlowOrb size="w-20 h-20 md:w-24 md:h-24" />
+          <FloatingImage src={s4} delay={0.7} className="w-full h-full object-contain" />
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+</div>
+
+        {/* FUDGY */}
+        <div className="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl flex flex-col items-center p-6">
+
+          <h3 className="text-[#ffe6c0] text-2xl font-bold mb-4">
+            FUDGY DELIGHTS
+          </h3>
+
+          <div className="relative flex-1 flex items-center justify-center">
+            <GlowOrb size="w-40 h-40" />
+            <FloatingImage src={fm1} className="w-48 h-48" />
           </div>
 
-          {/* FUDGY */}
-          <div className="flex-1">
-            <div className="w-full h-full bg-white/5 backdrop-blur-sm border  border-white/20 rounded-xl px-4 py-2 transition-all duration-300 ease-out hover:-translate-y-[10px] hover:ring-1 hover:ring-[#ffbf6b]/90 hover:shadow-[0_0_20px_rgba(255,191,107,0.55),_0_0_40px_rgba(255,191,107,0.65)]">
-              <div className="flex flex-col gap-2 items-center -mt-18">
-                <h3 className="text-[#ffe6c0] font-['Poppins'] text-4xl font-bold p-3 -mb-5">
-                  FUDGY DELIGHTS
-                </h3>
-
-                <div className="mt-4">
-                <MenuItems items={fudgyMenu} />
-</div>
-                <img
-                  src={fm1}
-                  className={`w-80 h-80 object-contain ${
-                    visible ? "animate-zoom-in" : "opacity-0"
-                  }`}
-                />
-              </div>
-            </div>
+          <div className="w-full border-t border-white/10 pt-4 flex justify-between">
+            <span>Brownie with Ice-Cream</span>
+            <span className="text-[#ffbf6b] font-semibold">₹100</span>
           </div>
 
         </div>
       </section>
 
       {/* ================= MOBILE ================= */}
-<section className="md:hidden w-full px-4 pt-16 pb-10 text-white flex flex-col gap-6">
+<section className="md:hidden px-2 pt-2 pb-10 text-white relative z-10 space-y-5">
 
-  {/* BEVERAGES CARD */}
-  <div className="
-  w-full
-  bg-white/5 backdrop-blur-sm
-  border border-white/20
-  rounded-xl
-  px-4 py-5
-  transition-all duration-300 ease-out
-  hover:-translate-y-[6px]
-  hover:ring-1 hover:ring-[#ffbf6b]/90
-  hover:shadow-[0_0_20px_rgba(255,191,107,0.55),_0_0_40px_rgba(255,191,107,0.65)]
-">
+  {/* BEVERAGES */}
+  <div className="bg-white/5 backdrop-blur-sm border border-white/20 rounded-xl p-4">
 
+    <h3 className="text-center text-[#ffe6c0] text-xl mb-4">
+      BEVERAGES
+    </h3>
 
-    <div className="flex flex-col items-center gap-5 -mt-3">
-      <h3 className="text-[#ffe6c0] font-['Poppins'] text-2xl font-bold">
-        BEVERAGES
-      </h3>
-
-      {/* FIRST ROW */}
-      <div className="flex w-full items-center gap-3 -mt-4">
-        <div className="flex-1 min-w-0">
-          <MenuItems items={beverageMenu.slice(0, 6)} />
-        </div>
-
-        <img
-          src={s1}
-          className={`w-24 h-24 object-contain flex-shrink-0 ${
-            visible ? "animate-slide-in-right" : "opacity-0"
-          }`}
-        />
+    {/* CLASSIC (RIGHT - s1) */}
+    <div className="flex items-center gap-3 mb-4">
+      <div className="flex-1">
+        <CategoryBlock title="CLASSIC" items={beverageMenu.classic} />
       </div>
 
-      {/* SECOND ROW */}
-      <div className="flex w-full items-center gap-0 -ml-8 -mt-2 -mb-2">
-        <img
-          src={s2}
-          className={`w-28 h-28 object-contain flex-shrink-0 ${
-            visible ? "animate-slide-in-left" : "opacity-0"
-          }`}
-        />
-
-        <div className="flex-1 min-w-0">
-          <MenuItems items={beverageMenu.slice(6)} />
-        </div>
+      <div className="relative w-20 h-20 flex-shrink-0">
+        <GlowOrb size="w-16 h-16" />
+        <FloatingImage src={s1} className="w-20 h-20 object-contain" />
       </div>
     </div>
-  </div>
 
-  {/* FUDGY CARD */}
-  <div className="
-  w-full
-  bg-white/5 backdrop-blur-sm
-  border border-white/20
-  rounded-xl
-  px-4 py-3 -mt-2
-  transition-all duration-300 ease-out
-  hover:-translate-y-[6px]
-  hover:ring-1 hover:ring-[#ffbf6b]/90
-  hover:shadow-[0_0_20px_rgba(255,191,107,0.55),_0_0_40px_rgba(255,191,107,0.65)]
-">
+    {/* PREMIUM (LEFT - s2) */}
+    <div className="flex items-center gap-3 mb-4">
 
-
-    <div className="flex flex-col items-center text-center gap-3">
-      <h3 className="text-[#ffe6c0] font-['Poppins'] text-2xl font-bold">
-        FUDGY DELIGHTS
-      </h3>
-
-      <div className="w-full flex justify-center">
-  <div className="w-full max-w-xs">
-    {fudgyMenu.map((item, i) => (
-      <div
-        key={i}
-        className={`flex justify-center items-center py-[2px] text-[14px] ${
-          visible ? "animate-fade-in" : "opacity-0"
-        }`}
-        style={{ animationDelay: `${i * 80}ms` }}
-      >
-        <span className="text-center">
-          {item.name} &nbsp; ₹{item.price}/-
-        </span>
+      <div className="relative w-20 h-20 flex-shrink-0">
+        <GlowOrb size="w-16 h-16" />
+        <FloatingImage src={s2} delay={0.3} className="w-20 h-20 object-contain" />
       </div>
-    ))}
-  </div>
-</div>
 
-
-      <img
-        src={fm1}
-        className={`w-32 h-32 object-contain ${
-          visible ? "animate-zoom-in" : "opacity-0"
-        }`}
-      />
+      <div className="flex-1">
+        <CategoryBlock title="PREMIUM" items={beverageMenu.premium} />
+      </div>
     </div>
+
+    {/* DELUXE (RIGHT - s3) */}
+    <div className="flex items-center gap-3 mb-4">
+      <div className="flex-1">
+        <CategoryBlock title="DELUXE" items={beverageMenu.deluxe} />
+      </div>
+
+      <div className="relative w-20 h-20 flex-shrink-0">
+        <GlowOrb size="w-16 h-16" />
+        <FloatingImage src={s3} delay={0.5} className="w-20 h-20 object-contain" />
+      </div>
+    </div>
+
+    {/* FRUITY (LEFT - s4) */}
+    <div className="flex items-center gap-3">
+
+      <div className="relative w-20 h-20 flex-shrink-0">
+        <GlowOrb size="w-16 h-16" />
+        <FloatingImage src={s4} delay={0.7} className="w-20 h-20 object-contain" />
+      </div>
+
+      <div className="flex-1">
+        <CategoryBlock title="FRUITY" items={beverageMenu.fruity} />
+      </div>
+    </div>
+
   </div>
 
+  {/* FUDGY */}
+  <div className="bg-white/5 backdrop-blur-sm border border-white/20 rounded-xl p-4 text-center">
+
+    <h3 className="text-[#ffe6c0] text-xl mb-4">
+      FUDGY DELIGHTS
+    </h3>
+
+    <div className="relative flex justify-center">
+      <GlowOrb size="w-32 h-32" />
+      <FloatingImage src={fm1} className="w-36 h-36 object-contain" />
+    </div>
+
+    <div className="mt-3 flex justify-between border-t border-white/10 pt-3">
+      <span>Brownie with Ice-Cream</span>
+      <span className="text-[#ffbf6b] font-semibold">₹100</span>
+    </div>
+
+  </div>
 </section>
-
-
-      {/* ANIMATIONS */}
-      <style>
-        {`
-          @keyframes fade-in {
-            0% { opacity: 0; transform: translateY(30px); }
-            100% { opacity: 1; transform: translateY(0); }
-          }
-          @keyframes slide-in-right {
-            0% { opacity: 0; transform: translateX(50px); }
-            100% { opacity: 1; transform: translateX(0); }
-          }
-          @keyframes slide-in-left {
-            0% { opacity: 0; transform: translateX(-50px); }
-            100% { opacity: 1; transform: translateX(0); }
-          }
-          @keyframes zoom-in {
-            0% { opacity: 0; transform: scale(0.5); }
-            100% { opacity: 1; transform: scale(1); }
-          }
-
-          .animate-fade-in { animation: fade-in 1.2s ease-out forwards; }
-          .animate-slide-in-right { animation: slide-in-right 0.8s ease-out forwards; }
-          .animate-slide-in-left { animation: slide-in-left 0.8s ease-out forwards; }
-          .animate-zoom-in { animation: zoom-in 0.8s ease-out forwards; }
-        `}
-      </style>
+      <style>{`
+        @keyframes fade-in {
+          from { opacity: 0; transform: translateY(12px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in { animation: fade-in 0.6s ease-out forwards; }
+      `}</style>
     </div>
   );
 }

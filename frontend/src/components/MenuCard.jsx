@@ -58,13 +58,13 @@ const MenuCard = ({ title, items, images, categoryType }) => {
 
       {isFries ? (
         <>
-          {/* Images LEFT */}
-          <div className="flex-[0.8] flex flex-col items-center justify-center">
+          {/* Images LEFT (35%) */}
+          <div className="flex-[0.35] flex flex-col items-center justify-center scale-125">
             <SectionImages images={images} type={categoryType} />
           </div>
 
-          {/* Menu Items RIGHT */}
-          <div className="flex-[0.9] max-w-[220px] space-y-1 text-left">
+          {/* Menu Items RIGHT (65%) */}
+          <div className="flex-[0.65] max-w-[260px] space-y-1 text-left">
             {items.map((item, idx) => (
               <PriceItem key={idx} {...item} isLast={idx === items.length - 1} />
             ))}
@@ -72,15 +72,15 @@ const MenuCard = ({ title, items, images, categoryType }) => {
         </>
       ) : (
         <>
-          {/* Menu Items LEFT */}
-          <div className="flex-[0.9] max-w-[220px] space-y-1 text-left">
+          {/* Menu Items LEFT (65%) */}
+          <div className="flex-[0.65] max-w-[260px] space-y-1 text-left">
             {items.map((item, idx) => (
               <PriceItem key={idx} {...item} isLast={idx === items.length - 1} />
             ))}
           </div>
 
-          {/* Images RIGHT */}
-          <div className="flex-[0.8] flex flex-col items-center justify-center">
+          {/* Images RIGHT (35%) */}
+          <div className="flex-[0.35] flex flex-col items-center justify-center scale-125">
             <SectionImages images={images} type={categoryType} />
           </div>
         </>
@@ -106,10 +106,10 @@ const SectionImages = ({ images, type, className = "" }) => {
 
 if (isBurger) {
   if (i === 0)
-    styleClasses += "w-[clamp(90px,28vw,140px)] h-auto -rotate-[12deg]";
+    styleClasses += "w-[clamp(90px,28vw,140px)] h-auto -rotate-[12deg] md:ml-0 ml-4";
   else
-    styleClasses += "w-[clamp(110px,32vw,160px)] h-auto -ml-6 sm:-ml-10 rotate-[5deg]";
-} 
+    styleClasses += "w-[clamp(110px,32vw,160px)] h-auto md:-ml-10 ml-0 rotate-[5deg]";
+}
 else if (isFries) {
   if (i === 0)
     styleClasses += "w-[clamp(90px,26vw,130px)] h-auto -rotate-[15deg]";
@@ -118,9 +118,9 @@ else if (isFries) {
 } 
 else if (isPasta) {
   if (i === 0)
-    styleClasses += "w-[clamp(120px,34vw,180px)] h-auto";
+    styleClasses += "w-[clamp(120px,34vw,180px)] h-auto md:ml-0 ml-4";
   else
-    styleClasses += "w-[clamp(100px,30vw,150px)] h-auto -ml-4";
+    styleClasses += "w-[clamp(100px,30vw,150px)] h-auto md:-ml-4 ml-0";
 }
 
         return (

@@ -29,6 +29,7 @@ import co10 from "../assets/cakes/co10.png";
 
 import MenuCard from '../components/MenuCard';
 import CakeCard from '../components/CakeCard';
+import Menu2 from './Menu2';
 
 // Menu Data
 const burgerMenu = [
@@ -54,16 +55,16 @@ const pastaMenu = [
     { name: "Mix Sauce Pasta", price: 200 },
 ];
 
-const beverageMenu = [
-    { name: "Cold Coffee", price: 80 },
-    { name: "Chocolate Shake", price: 80 },
-    { name: "Brownie Shake", price: 120 },
-    { name: "Oreo Shake", price: 120 },
-    { name: "KitKat Shake", price: 120 },
-    { name: "Nutella Shake", price: 150 },
-];
+// const beverageMenu = [
+//     { name: "Cold Coffee", price: 80 },
+//     { name: "Chocolate Shake", price: 80 },
+//     { name: "Brownie Shake", price: 120 },
+//     { name: "Oreo Shake", price: 120 },
+//     { name: "KitKat Shake", price: 120 },
+//     { name: "Nutella Shake", price: 150 },
+// ];
 
-const fudgyMenu = [{ name: "Brownie with Ice-Cream", price: 100 }];
+// const fudgyMenu = [{ name: "Brownie with Ice-Cream", price: 100 }];
 
 const cakesData = [
     { id: 1, name: "Chocolate", pricePerKg: 720, image: co1 },
@@ -150,17 +151,16 @@ const TabbedMenuPage = () => {
                     )}
 
                     {activeTab === 'beverages' && (
-                        <motion.div
-                            key="beverages"
-                            initial={{ opacity: 0, scale: 0.98 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.98 }}
-                            className="flex flex-col md:flex-row gap-6 justify-center items-stretch h-full pb-8"
-                        >
-                            <MenuCard title="BEVERAGES" items={beverageMenu} images={[s1, s2]} categoryType="BURGERS" onHover={setHoveredCategory} />
-                            <MenuCard title="FUDGY DELIGHTS" items={fudgyMenu} images={[fm1]} categoryType="PASTA" onHover={setHoveredCategory} />
-                        </motion.div>
-                    )}
+  <motion.div
+    key="beverages"
+    initial={{ opacity: 0, scale: 0.98 }}
+    animate={{ opacity: 1, scale: 1 }}
+    exit={{ opacity: 0, scale: 0.98 }}
+    className="w-full h-full pb-8"
+  >
+    <Menu2 />
+  </motion.div>
+)}
 
                     {activeTab === 'cakes' && (
                         <motion.div 
